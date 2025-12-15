@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trading Simulation Overlay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body { font-family: Arial, sans-serif; background:#0b0b0b; color:#fff; }
+    .panel {
+      position: fixed; top: 20px; right: 20px;
+      background: #111; border: 1px solid #2a2a2a;
+      border-radius: 10px; padding: 14px; width: 260px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.5);
+    }
+    .title { font-weight: bold; margin-bottom: 8px; }
+    .badge { color:#ffb703; font-size:12px; margin-bottom:10px; }
+    .row { display:flex; justify-content:space-between; margin:6px 0; }
+    .btn {
+      width: 100%; padding: 8px; margin-top: 10px;
+      background:#1f6feb; border:none; border-radius:6px; color:#fff;
+      cursor:pointer;
+    }
+    .btn.red { background:#b91c1c; }
+    small { color:#9aa0a6; }
+  </style>
+</head>
+<body>
+
+  <div class="panel">
+    <div class="title">Trading Simulation</div>
+    <div class="badge">SIMULATION MODE — Not Real Balance</div>
+
+    <div class="row"><span>Mode</span><strong id="mode">DEMO</strong></div>
+    <div class="row"><span>Balance</span><strong id="balance">$10,000.00</strong></div>
+
+    <button class="btn" onclick="toggleMode()">Toggle Demo / Live (Sim)</button>
+    <button class="btn red" onclick="placeTrade()">Place Trade (Sim)</button>
+
+    <small>এইটা শুধু UI/Training simulation। কোনো রিয়েল ট্রেড হয় না।</small>
+  </div>
+
+<script>
+  let mode = 'DEMO';
+  let balance = 10000;
+
+  function render(){
+    document.getElementById('mode').innerText = mode;
+    document.getElementById('balance').innerText =
+      '$' + balance.toFixed(2);
+  }
+
+  function toggleMode(){
+    mode = (mode === 'DEMO') ? 'LIVE (SIM)' : 'DEMO';
+    render();
+  }
+
+  function placeTrade(){
+    const win = Math.random() > 0.5;
+    balance += win ? 120 : -100;
+    render();
+  }
+
+  render();
+</script>
+</body>
+</html>
